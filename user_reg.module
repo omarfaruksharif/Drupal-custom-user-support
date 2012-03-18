@@ -1,0 +1,50 @@
+<?php
+function dbg($content, $die=false, $print='print_r') {
+	if($die === true) {
+		echo '<pre>'; $print($content); echo '</pre>'; die();
+	} else {
+		echo '<pre>'; $print($content); echo '</pre>';
+	}
+}
+
+
+function user_reg_menu() {
+	$items = array();
+	
+	$items['admin/ticket'] = array(
+		'title' => 'Support',
+		'description' => 'User supporting panel.',
+		'page callback' => 'system_admin_menu_block_page',
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+		'access arguments' => array('administer users'),
+		'position' => 'left',
+		'weight' => -4,
+	);
+	$items['admin/ticket/test'] = array(
+		'title' => 'Test',
+		'description' => 'User supporting panel.',
+		'page callback' => 'user_registration_test',
+		'access arguments' => array('administer users'),
+	);
+	$items['test'] = array(
+		'title' => 'Test',
+		'description' => 'User supporting panel.',
+		'page callback' => 'user_registration_test',
+		'access callback' => TRUE,
+		'type' => MENU_LOCAL_TASK,
+	);
+	
+	return $items;
+}
+
+function user_registration_test() {
+	$user_reg_form = drupal_get_form('user_register_form');
+	dbg($user_reg_form, true);
+	
+	//$user_reg_form['account']['']
+	
+	return drupal_render($user_reg_form);
+	//return '';
+}
+
