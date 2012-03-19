@@ -2,18 +2,18 @@
 
 function user_reg_enable() {
 	// Check if our field is not already created.
-	if (!field_info_field('field_myField')) {
+	if (!field_info_field('field_user_fullname')) {
 		$field = array(
-			'field_name' => 'field_myField', 
+			'field_name' => 'field_user_fullname', 
 			'type' => 'text', 
 		);
 		field_create_field($field);
 
 		// Create the instance on the bundle.
 		$instance = array(
-			'field_name' => 'field_myField', 
+			'field_name' => 'field_user_fullname', 
 			'entity_type' => 'user', 
-			'label' => 'My Field Name', 
+			'label' => 'Full Name', 
 			'bundle' => 'user', 
 			// If you don't set the "required" property then the field wont be required by default.
 			'required' => TRUE,
