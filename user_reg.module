@@ -40,7 +40,7 @@ function user_reg_menu() {
 
 function user_registration_test() {
 	$user_reg_form = drupal_get_form('user_register_form');
-	dbg($user_reg_form, true);
+	//dbg($user_reg_form, true);
 	
 	//$user_reg_form['account']['']
 	

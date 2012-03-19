@@ -8,4 +8,6 @@ package = Other
 configure = admin/ticket
 recommends[] = redirect
 
+files[] = user_reg.install
+
 version = 7.x-4.x-dev

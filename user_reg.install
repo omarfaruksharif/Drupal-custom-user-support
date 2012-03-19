@@ -1,31 +1,25 @@
 <?php
 
+include('include/fieldClass.php');
+
 function user_reg_enable() {
 	// Check if our field is not already created.
 	if (!field_info_field('field_user_fullname')) {
-		$field = array(
-			'field_name' => 'field_user_fullname', 
-			'type' => 'text', 
-		);
-		field_create_field($field);
-
-		// Create the instance on the bundle.
-		$instance = array(
-			'field_name' => 'field_user_fullname', 
-			'entity_type' => 'user', 
-			'label' => 'Full Name', 
-			'bundle' => 'user', 
-			// If you don't set the "required" property then the field wont be required by default.
-			'required' => TRUE,
-			'settings' => array(
-				// Here you inform either or not you want this field showing up on the registration form.
-				'user_register_form' => 1,
-			),
-			'widget' => array(
-				'type' => 'textfield',
-			), 
-		);
-		
-		field_create_instance($instance);
+		CustomUserRegistrationField::createField('field_user_fullname', 'Full Name', 'user', 'text', 'textfield', array(), 
+			array('required' => TRUE, 'user_register_form' => 1), array('weight' => 0));
 	}
+	if (!field_info_field('field_user_organization')) {
+		CustomUserRegistrationField::createField('field_user_organization', 'Organization', 'user', 'text', 'textfield', array(), 
+			array('required' => FALSE, 'user_register_form' => '1'), array('weight' => 3));
+	}
+	if (!field_info_field('field_user_question')) {
+		CustomUserRegistrationField::createField('field_user_question', 'Question', 'user', 'text_long', 'text_textarea', array(), 
+			array('required' => TRUE, 'user_register_form' => '1'), array('weight' => 4, 'rows' => 5));
+	}
+
+	variable_set('user_email_verification', FALSE);
+}
+
+function user_reg_disable() {
+	variable_set('user_email_verification', TRUE);
 }
